@@ -1,46 +1,39 @@
-# Astro Starter Kit: Basics
+# Igor Wedding Website
 
-```sh
-npm create astro@latest -- --template basics
+Landing page matrimonio single-page realizzata con Astro.
+
+La repository contiene:
+
+- il sito statico Astro
+- il `Dockerfile` per buildare un container nginx
+- il workflow GitHub Actions che pubblica su GHCR
+- l'aggiornamento automatico della repo GitOps `k3s-argocd-gitops`
+
+## Comandi utili
+
+- `npm install`
+- `npm run dev`
+- `npm run build`
+- `npm run preview`
+
+## Build container locale
+
+```bash
+docker build -t ghcr.io/lerma4/igor-wedding-website:local .
+docker run --rm -p 8080:8080 ghcr.io/lerma4/igor-wedding-website:local
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Health check disponibile su `http://localhost:8080/healthz`.
 
-## 🚀 Project Structure
+## CI/CD
 
-Inside of your Astro project, you'll see the following folders and files:
+Il workflow `.github/workflows/container.yml` replica il flusso usato in `canarino-argocd-demo`:
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+1. builda e pubblica l'immagine container su GHCR a ogni push su `master`
+2. pubblica anche i tag Git `v*`
+3. su push a `master` aggiorna automaticamente `apps/igor-wedding/overlays/igor-wedding/kustomization.yaml` nella repo GitOps
+4. Argo CD rileva il commit GitOps e sincronizza il deploy nel cluster K3s
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Secret richiesto
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Per consentire al workflow di scrivere nella repo privata `k3s-argocd-gitops`, configura un secret GitHub Actions chiamato `GITOPS_REPO_TOKEN` con accesso in scrittura a quella repository.

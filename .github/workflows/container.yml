@@ -1,0 +1,92 @@
+name: Build and publish container
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/igor-wedding-website
+  GITOPS_REPOSITORY: ${{ github.repository_owner }}/k3s-argocd-gitops
+  GITOPS_OVERLAY_FILE: apps/igor-wedding/overlays/igor-wedding/kustomization.yaml
+
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.image_tag.outputs.value }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compute image tag
+        id: image_tag
+        run: printf 'value=sha-%s\n' "${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=master,enable={{is_default_branch}}
+            type=ref,event=tag
+            type=raw,value=${{ steps.image_tag.outputs.value }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  update-gitops:
+    needs: container
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitOps repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.GITOPS_REPOSITORY }}
+          ref: main
+          token: ${{ secrets.GITOPS_REPO_TOKEN }}
+          path: gitops
+
+      - name: Update deployed image tag
+        env:
+          IMAGE_TAG: ${{ needs.container.outputs.image_tag }}
+        run: |
+          perl -0pi -e "s/\\bnewTag: .*/newTag: ${IMAGE_TAG}/" "gitops/${GITOPS_OVERLAY_FILE}"
+          grep -n "newTag:" "gitops/${GITOPS_OVERLAY_FILE}"
+
+      - name: Commit GitOps update
+        working-directory: gitops
+        env:
+          IMAGE_TAG: ${{ needs.container.outputs.image_tag }}
+        run: |
+          if git diff --quiet -- "${GITOPS_OVERLAY_FILE}"; then
+            echo "GitOps overlay already points to ${IMAGE_TAG}"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${GITOPS_OVERLAY_FILE}"
+          git commit -m "Update igor-wedding image to ${IMAGE_TAG}"
+          git push
