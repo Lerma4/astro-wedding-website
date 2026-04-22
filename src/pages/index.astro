@@ -1,11 +1,23 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import FloatingNav from '../components/FloatingNav.astro';
+import HeroSection from '../components/HeroSection.astro';
+import IntroSection from '../components/IntroSection.astro';
+import VenueSection from '../components/VenueSection.astro';
+import RegistrySection from '../components/RegistrySection.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title="Igor e Giulia - 21 giugno 2026"
+	description="Landing page matrimonio single-page in stile editoriale, con location, dettagli della giornata e una lista nozze elegante."
+>
+	<FloatingNav />
+	<main id="contenuto" class="page-shell">
+		<HeroSection />
+		<IntroSection />
+		<VenueSection />
+		<RegistrySection />
+		<SiteFooter />
+	</main>
 </Layout>

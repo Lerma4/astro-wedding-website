@@ -1,0 +1,18 @@
+<svg width="960" height="1240" viewBox="0 0 960 1240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="1240" rx="80" fill="#F4EEE7"/>
+  <rect x="36" y="36" width="888" height="1168" rx="56" fill="url(#paint0_linear_3_2)"/>
+  <ellipse cx="674" cy="216" rx="240" ry="146" fill="#E9D5C8" fill-opacity="0.74"/>
+  <ellipse cx="240" cy="998" rx="212" ry="154" fill="#E0C79B" fill-opacity="0.58"/>
+  <path d="M120 874C224.667 800.667 331.333 764 440 764C548.667 764 670.667 819.333 806 930V1108H120V874Z" fill="#F7F0E8" fill-opacity="0.84"/>
+  <path d="M152 956C266.667 852.667 378 801 486 801C594 801 696.667 850.333 794 949V1108H152V956Z" fill="#879079" fill-opacity="0.24"/>
+  <path d="M196 418C295.333 340.667 391.333 302 484 302C576.667 302 675.333 350.333 780 447V715H196V418Z" fill="#FFF9F3" fill-opacity="0.78"/>
+  <path d="M294 454C353.333 405.333 416.667 381 484 381C551.333 381 618 408.333 684 463V715H294V454Z" fill="#D8BE8B" fill-opacity="0.48"/>
+  <rect x="126" y="136" width="176" height="16" rx="8" fill="#FFF8F1" fill-opacity="0.72"/>
+  <rect x="126" y="170" width="102" height="12" rx="6" fill="#FFF8F1" fill-opacity="0.46"/>
+  <defs>
+    <linearGradient id="paint0_linear_3_2" x1="92" y1="58" x2="816" y2="1170" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBF7F1"/>
+      <stop offset="1" stop-color="#EFE4D9"/>
+    </linearGradient>
+  </defs>
+</svg>

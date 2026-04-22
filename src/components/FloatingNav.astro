@@ -1,0 +1,113 @@
+---
+const links = [
+	{ href: '#storia', label: 'Storia' },
+	{ href: '#venue', label: 'Location' },
+	{ href: '#lista-nozze', label: 'Lista nozze' },
+	{ href: '#footer', label: 'Contatti' },
+];
+---
+
+<header class="floating-nav-shell" data-floating-nav>
+	<div class="container floating-nav-wrap">
+		<div class="bezel bezel--glass floating-nav" data-reveal>
+			<div class="bezel__inner floating-nav__inner">
+				<a class="nav-brand" href="#top" aria-label="Torna all'inizio">
+					<span class="nav-brand__mark" aria-hidden="true">IG</span>
+					<span class="nav-brand__text">Igor e Giulia</span>
+				</a>
+
+				<nav class="nav-links" aria-label="Sezioni principali">
+					{
+						links.map((link) => (
+							<a href={link.href} class="nav-links__item">
+								{link.label}
+							</a>
+						))
+					}
+				</nav>
+
+				<a class="button button--secondary nav-cta" href="#lista-nozze">
+					<span>Lista nozze</span>
+					<span class="button__icon" aria-hidden="true">↗</span>
+				</a>
+
+				<button
+					type="button"
+					class="menu-toggle"
+					data-menu-toggle
+					aria-expanded="false"
+					aria-controls="mobile-menu"
+					aria-label="Apri menu"
+				>
+					<span class="menu-toggle__line"></span>
+					<span class="menu-toggle__line"></span>
+					<span class="menu-toggle__line"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="menu-overlay" id="mobile-menu" data-menu-overlay aria-hidden="true">
+		<div class="menu-overlay__panel">
+			<div class="menu-overlay__header">
+				<div class="menu-overlay__brand">
+					<span class="nav-brand__mark" aria-hidden="true">IG</span>
+					<span>Igor e Giulia</span>
+				</div>
+				<button type="button" class="menu-overlay__close" data-menu-close aria-label="Chiudi menu">
+					<span></span>
+					<span></span>
+				</button>
+			</div>
+
+			<nav class="menu-overlay__nav" aria-label="Menu mobile">
+				{
+					links.map((link, index) => (
+						<a href={link.href} class="menu-overlay__link" data-menu-link style={`--item-index:${index};`}>
+							{link.label}
+						</a>
+					))
+				}
+			</nav>
+
+			<a class="button menu-overlay__cta" href="#lista-nozze" data-menu-link>
+				<span>Apri la sezione regali</span>
+				<span class="button__icon" aria-hidden="true">↗</span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<script is:inline>
+	const navRoot = document.querySelector('[data-floating-nav]');
+	if (navRoot) {
+		const body = document.body;
+		const toggle = navRoot.querySelector('[data-menu-toggle]');
+		const closeButton = navRoot.querySelector('[data-menu-close]');
+		const overlay = navRoot.querySelector('[data-menu-overlay]');
+		const links = navRoot.querySelectorAll('[data-menu-link]');
+
+		const setMenuState = (open) => {
+			navRoot.dataset.open = open ? 'true' : 'false';
+			body.dataset.menuOpen = open ? 'true' : 'false';
+			overlay?.setAttribute('aria-hidden', open ? 'false' : 'true');
+			toggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
+			toggle?.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu');
+		};
+
+		setMenuState(false);
+
+		toggle?.addEventListener('click', () => {
+			setMenuState(navRoot.dataset.open !== 'true');
+		});
+
+		closeButton?.addEventListener('click', () => setMenuState(false));
+		links.forEach((link) => link.addEventListener('click', () => setMenuState(false)));
+
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && navRoot.dataset.open === 'true') {
+				setMenuState(false);
+			}
+		});
+	}
+</script>
