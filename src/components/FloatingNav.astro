@@ -1,9 +1,9 @@
 ---
 const links = [
-	{ href: '#storia', label: 'Storia' },
-	{ href: '#venue', label: 'Location' },
-	{ href: '#lista-nozze', label: 'Lista nozze' },
-	{ href: '#footer', label: 'Contatti' },
+	{ href: "#storia", label: "Storia" },
+	{ href: "#venue", label: "Location" },
+	// { href: '#lista-nozze', label: 'Lista nozze' },
+	{ href: "#footer", label: "Contatti" },
 ];
 ---
 
@@ -47,14 +47,24 @@ const links = [
 		</div>
 	</div>
 
-	<div class="menu-overlay" id="mobile-menu" data-menu-overlay aria-hidden="true">
+	<div
+		class="menu-overlay"
+		id="mobile-menu"
+		data-menu-overlay
+		aria-hidden="true"
+	>
 		<div class="menu-overlay__panel">
 			<div class="menu-overlay__header">
 				<div class="menu-overlay__brand">
 					<span class="nav-brand__mark" aria-hidden="true">IG</span>
 					<span>Igor e Giulia</span>
 				</div>
-				<button type="button" class="menu-overlay__close" data-menu-close aria-label="Chiudi menu">
+				<button
+					type="button"
+					class="menu-overlay__close"
+					data-menu-close
+					aria-label="Chiudi menu"
+				>
 					<span></span>
 					<span></span>
 				</button>
@@ -63,14 +73,23 @@ const links = [
 			<nav class="menu-overlay__nav" aria-label="Menu mobile">
 				{
 					links.map((link, index) => (
-						<a href={link.href} class="menu-overlay__link" data-menu-link style={`--item-index:${index};`}>
+						<a
+							href={link.href}
+							class="menu-overlay__link"
+							data-menu-link
+							style={`--item-index:${index};`}
+						>
 							{link.label}
 						</a>
 					))
 				}
 			</nav>
 
-			<a class="button menu-overlay__cta" href="#lista-nozze" data-menu-link>
+			<a
+				class="button menu-overlay__cta"
+				href="#lista-nozze"
+				data-menu-link
+			>
 				<span>Apri la sezione regali</span>
 				<span class="button__icon" aria-hidden="true">↗</span>
 			</a>
@@ -79,33 +98,38 @@ const links = [
 </header>
 
 <script is:inline>
-	const navRoot = document.querySelector('[data-floating-nav]');
+	const navRoot = document.querySelector("[data-floating-nav]");
 	if (navRoot) {
 		const body = document.body;
-		const toggle = navRoot.querySelector('[data-menu-toggle]');
-		const closeButton = navRoot.querySelector('[data-menu-close]');
-		const overlay = navRoot.querySelector('[data-menu-overlay]');
-		const links = navRoot.querySelectorAll('[data-menu-link]');
+		const toggle = navRoot.querySelector("[data-menu-toggle]");
+		const closeButton = navRoot.querySelector("[data-menu-close]");
+		const overlay = navRoot.querySelector("[data-menu-overlay]");
+		const links = navRoot.querySelectorAll("[data-menu-link]");
 
 		const setMenuState = (open) => {
-			navRoot.dataset.open = open ? 'true' : 'false';
-			body.dataset.menuOpen = open ? 'true' : 'false';
-			overlay?.setAttribute('aria-hidden', open ? 'false' : 'true');
-			toggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
-			toggle?.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu');
+			navRoot.dataset.open = open ? "true" : "false";
+			body.dataset.menuOpen = open ? "true" : "false";
+			overlay?.setAttribute("aria-hidden", open ? "false" : "true");
+			toggle?.setAttribute("aria-expanded", open ? "true" : "false");
+			toggle?.setAttribute(
+				"aria-label",
+				open ? "Chiudi menu" : "Apri menu",
+			);
 		};
 
 		setMenuState(false);
 
-		toggle?.addEventListener('click', () => {
-			setMenuState(navRoot.dataset.open !== 'true');
+		toggle?.addEventListener("click", () => {
+			setMenuState(navRoot.dataset.open !== "true");
 		});
 
-		closeButton?.addEventListener('click', () => setMenuState(false));
-		links.forEach((link) => link.addEventListener('click', () => setMenuState(false)));
+		closeButton?.addEventListener("click", () => setMenuState(false));
+		links.forEach((link) =>
+			link.addEventListener("click", () => setMenuState(false)),
+		);
 
-		document.addEventListener('keydown', (event) => {
-			if (event.key === 'Escape' && navRoot.dataset.open === 'true') {
+		document.addEventListener("keydown", (event) => {
+			if (event.key === "Escape" && navRoot.dataset.open === "true") {
 				setMenuState(false);
 			}
 		});
