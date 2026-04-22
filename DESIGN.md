@@ -75,7 +75,7 @@ Use a combination of a high-contrast serif for key headings and a clean sans-ser
 
 ### Font Pairing
 - Headings: `Cormorant Garamond`, fallback `Playfair Display`, serif
-- Body / UI: `Inter`, fallback `Manrope`, sans-serif
+- Body / UI: `Plus Jakarta Sans`, fallback `Manrope`, sans-serif
 
 ### Type Scale
 - Hero title: 56–72px desktop, 40–48px mobile

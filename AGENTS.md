@@ -12,7 +12,7 @@ Per qualsiasi modifica a UI, layout, componenti, tipografia, colori, spaziature,
 
 ## Project Context
 
-- Il progetto e' un sito Astro minimale, attualmente ancora basato quasi interamente sullo starter di default.
+- Il progetto e' un sito Astro minimale gia' trasformato in una landing page matrimonio single-page con sezioni dedicate e stile editoriale custom.
 - L'obiettivo del repository e' una landing page matrimonio single-page, non un sito multi-pagina generico.
 - Lo stack attuale e' volutamente leggero: `astro` come unica dipendenza applicativa, nessun framework UI aggiuntivo.
 - Il TypeScript config estende `astro/tsconfigs/strict`: mantenere il codice compatibile con questa impostazione.
@@ -28,10 +28,10 @@ Per qualsiasi modifica a UI, layout, componenti, tipografia, colori, spaziature,
 
 ## Current Repository State
 
-- `src/components/Welcome.astro` contiene ancora il contenuto demo di Astro e va considerato materiale provvisorio da sostituire, non una base stilistica da seguire.
-- `src/pages/index.astro` monta ancora soltanto `Welcome.astro`; le future modifiche devono trasformarlo nella landing reale del matrimonio.
-- `src/layouts/Layout.astro` e' ancora generico, con `lang="en"` e titolo base: quando si lavora sulla pagina reale, allineare lingua, metadata e semantica al contenuto italiano del sito.
-- `README.md` e' ancora quello dello starter; non usarlo come riferimento funzionale o di prodotto.
+- `src/pages/index.astro` monta la landing completa tramite componenti dedicati per nav, hero, intro, venue, `Lista nozze` e footer.
+- `src/layouts/Layout.astro` centralizza metadata, token globali, tipografia, motion di base e regole condivise dell'intera esperienza.
+- `public/placeholders/` contiene immagini editoriali placeholder locali, utili fino all'arrivo degli asset fotografici definitivi.
+- `README.md` puo' ancora non riflettere pienamente il prodotto finale; non usarlo come riferimento funzionale o di prodotto finche' non viene aggiornato.
 
 ## Implementation Guidance
 
