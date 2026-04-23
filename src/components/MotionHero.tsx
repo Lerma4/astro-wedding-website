@@ -4,7 +4,6 @@ import {
 	useScroll,
 	useSpring,
 	useTransform,
-	type MotionValue,
 	type Variants,
 } from 'framer-motion';
 import { useRef } from 'react';
@@ -24,7 +23,6 @@ interface MotionHeroProps {
 interface HeroCardProps {
 	item: GalleryItem;
 	index: number;
-	progress: MotionValue<number>;
 	reduceMotion: boolean;
 }
 
@@ -60,26 +58,10 @@ const buttonIconVariants: Variants = {
 	},
 };
 
-const cardMotion = [
-	{ y: [14, -24], rotate: [-3, -6] },
-	{ y: [-16, -36], rotate: [0, 1.6] },
-	{ y: [28, -10], rotate: [3, 5.4] },
-];
-
-function HeroCard({ item, index, progress, reduceMotion }: HeroCardProps) {
-	const motionConfig = cardMotion[index] ?? cardMotion[cardMotion.length - 1];
-	const y = useTransform(progress, [0, 1], reduceMotion ? [0, 0] : motionConfig.y);
-	const rotate = useTransform(
-		progress,
-		[0, 1],
-		reduceMotion ? [0, 0] : motionConfig.rotate,
-	);
-	const scale = useTransform(progress, [0, 1], reduceMotion ? [1, 1] : [1, 1.02]);
-
+function HeroCard({ item, index, reduceMotion }: HeroCardProps) {
 	return (
 		<m.article
 			className={`bezel hero-card hero-card--${index + 1}`}
-			style={reduceMotion ? undefined : { y, rotate, scale }}
 			whileHover={
 				reduceMotion
 					? undefined
@@ -113,13 +95,9 @@ export default function MotionHero({ gallery }: MotionHeroProps) {
 		mass: 0.34,
 	});
 
-	const contentY = useTransform(smoothProgress, [0, 1], reduceMotion ? [0, 0] : [0, -52]);
-	const contentOpacity = useTransform(smoothProgress, [0, 0.78, 1], [1, 1, 0.52]);
-	const mediaY = useTransform(smoothProgress, [0, 1], reduceMotion ? [0, 0] : [0, -34]);
-	const railRotate = useTransform(smoothProgress, [0, 1], reduceMotion ? [0, 0] : [0, -1.2]);
-	const stageX = useTransform(smoothProgress, [0, 1], reduceMotion ? [0, 0] : [0, 10]);
-	const stageY = useTransform(smoothProgress, [0, 1], reduceMotion ? [0, 0] : [0, -26]);
-	const cueScale = useTransform(smoothProgress, [0, 0.65, 1], reduceMotion ? [1, 1, 1] : [1, 1.14, 0.94]);
+	const contentY = useTransform(smoothProgress, [0, 1], reduceMotion ? [0, 0] : [0, -32]);
+	const contentOpacity = useTransform(smoothProgress, [0, 0.84, 1], [1, 1, 0.72]);
+	const mediaY = useTransform(smoothProgress, [0, 1], reduceMotion ? [0, 0] : [0, -18]);
 
 	return (
 		<MotionProvider>
@@ -169,33 +147,28 @@ export default function MotionHero({ gallery }: MotionHeroProps) {
 					</div>
 
 					<a className="scroll-cue" href="#storia">
-						<m.span
-							className="scroll-cue__line"
-							aria-hidden="true"
-							style={reduceMotion ? undefined : { scaleX: cueScale, transformOrigin: 'left center' }}
-						/>
+						<span className="scroll-cue__line" aria-hidden="true" />
 						<span>Scorri per continuare</span>
 					</a>
 					</m.div>
 
 					<m.div className="hero__media hero__media--motion" style={reduceMotion ? undefined : { y: mediaY }}>
-						<m.div className="hero__stage" aria-hidden="true" style={reduceMotion ? undefined : { x: stageX, y: stageY }}>
+						<div className="hero__stage" aria-hidden="true">
 							<div className="hero__halo hero__halo--rose" />
 							<div className="hero__halo hero__halo--champagne" />
 							<div className="hero__halo hero__halo--sage" />
-						</m.div>
+						</div>
 
-						<m.div className="hero__media-rail" style={reduceMotion ? undefined : { rotate: railRotate }}>
+						<div className="hero__media-rail">
 							{gallery.map((item, index) => (
 								<HeroCard
 								key={item.src}
 								item={item}
 								index={index}
-								progress={smoothProgress}
 								reduceMotion={reduceMotion}
 								/>
 							))}
-						</m.div>
+						</div>
 					</m.div>
 				</div>
 			</section>
