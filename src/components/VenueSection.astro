@@ -1,5 +1,9 @@
+---
+import MotionVenueVisual from './MotionVenueVisual';
+---
+
 <section class="section section--venue" id="venue">
-	<div class="container venue">
+	<div class="container venue venue--motion">
 		<div class="venue__copy" data-reveal>
 			<span class="eyebrow">La location</span>
 			<h2 class="section-title">Tenuta La Fenice, tra vigne, luce calda e silenzio.</h2>
@@ -37,24 +41,6 @@
 			</div>
 		</div>
 
-		<div class="venue__visual" data-reveal>
-			<figure class="bezel venue-figure">
-				<div class="bezel__inner venue-figure__inner">
-					<img
-						src="/placeholders/venue-landscape.svg"
-						alt="Placeholder editoriale della location con architettura mediterranea e paesaggio collinare"
-						loading="lazy"
-						decoding="async"
-					/>
-					<figcaption>
-						<span class="detail-chip">Placeholder immagine</span>
-						<p>
-							Una cornice luminosa e sobria, pensata per restare elegante in ogni momento della
-							giornata.
-						</p>
-					</figcaption>
-				</div>
-			</figure>
-		</div>
+		<MotionVenueVisual client:visible={{ rootMargin: '200px' }} />
 	</div>
 </section>

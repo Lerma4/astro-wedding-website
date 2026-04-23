@@ -1,4 +1,6 @@
 ---
+import MotionHero from './MotionHero';
+
 const gallery = [
 	{
 		src: '/placeholders/hero-portrait-1.svg',
@@ -21,50 +23,4 @@ const gallery = [
 ];
 ---
 
-<section class="hero section section--hero" id="top">
-	<div class="container hero__grid">
-		<div class="hero__content" data-reveal>
-			<span class="eyebrow">21 giugno 2026 - Langhe</span>
-			<p class="hero__kicker">Un invito a condividere una giornata pensata con cura.</p>
-			<h1 class="display-title hero__title">Igor e Giulia</h1>
-			<p class="body-lg hero__lead">
-				Ci sposiamo tra colline luminose, tavole raccolte e una lunga sera d'estate da
-				vivere insieme alle persone che contano davvero.
-			</p>
-
-			<div class="hero__actions">
-				<a class="button" href="#lista-nozze">
-					<span>Scopri la lista nozze</span>
-					<span class="button__icon" aria-hidden="true">↗</span>
-				</a>
-				<a class="button button--secondary" href="#venue">
-					<span>Esplora la location</span>
-					<span class="button__icon" aria-hidden="true">↗</span>
-				</a>
-			</div>
-
-			<a class="scroll-cue" href="#storia">
-				<span class="scroll-cue__line" aria-hidden="true"></span>
-				<span>Scorri per continuare</span>
-			</a>
-		</div>
-
-		<div class="hero__media" data-reveal>
-			<div class="hero__media-rail">
-				{
-					gallery.map((item, index) => (
-						<article class={`bezel hero-card hero-card--${index + 1}`}>
-							<div class="bezel__inner hero-card__inner">
-								<img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
-								<div class="hero-card__copy">
-									<p class="hero-card__meta">{item.meta}</p>
-									<h2>{item.title}</h2>
-								</div>
-							</div>
-						</article>
-					))
-				}
-			</div>
-		</div>
-	</div>
-</section>
+<MotionHero client:idle={{ timeout: 300 }} gallery={gallery} />
