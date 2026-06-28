@@ -17,12 +17,11 @@ type GalleryItem = {
 };
 
 interface MotionHeroProps {
-	gallery: GalleryItem[];
+	image: GalleryItem;
 }
 
-interface HeroCardProps {
+interface HeroImageProps {
 	item: GalleryItem;
-	index: number;
 	reduceMotion: boolean;
 }
 
@@ -58,31 +57,32 @@ const buttonIconVariants: Variants = {
 	},
 };
 
-function HeroCard({ item, index, reduceMotion }: HeroCardProps) {
+function HeroImage({ item, reduceMotion }: HeroImageProps) {
 	return (
-		<m.article
-			className={`bezel hero-card hero-card--${index + 1}`}
+		<m.figure
+			className="bezel hero-portrait"
 			whileHover={
 				reduceMotion
 					? undefined
 					: {
-						scale: 1.028,
-						transition: { duration: 0.35, ease },
+						scale: 1.018,
+						transition: { duration: 0.5, ease },
 					}
 			}
 		>
-			<div className="bezel__inner hero-card__inner">
-				<img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
-				<div className="hero-card__copy">
-					<p className="hero-card__meta">{item.meta}</p>
+			<div className="bezel__inner hero-portrait__inner">
+				<img src={item.src} alt={item.alt} loading="eager" decoding="async" />
+				<div className="hero-portrait__shade" aria-hidden="true" />
+				<div className="hero-portrait__copy">
+					<p className="hero-portrait__meta">{item.meta}</p>
 					<h2>{item.title}</h2>
 				</div>
 			</div>
-		</m.article>
+		</m.figure>
 	);
 }
 
-export default function MotionHero({ gallery }: MotionHeroProps) {
+export default function MotionHero({ image }: MotionHeroProps) {
 	const heroRef = useRef<HTMLElement | null>(null);
 	const reduceMotion = useReducedMotion() ?? false;
 	const { scrollYProgress } = useScroll({
@@ -104,52 +104,52 @@ export default function MotionHero({ gallery }: MotionHeroProps) {
 			<section className="hero section section--hero" id="top" ref={heroRef}>
 				<div className="container hero__grid hero__grid--motion">
 					<m.div
-					className="hero__content"
-					style={reduceMotion ? undefined : { y: contentY, opacity: contentOpacity }}
+						className="hero__content"
+						style={reduceMotion ? undefined : { y: contentY, opacity: contentOpacity }}
 					>
-					<span className="eyebrow">21 giugno 2026 - Langhe</span>
-					<p className="hero__kicker">Un invito a condividere una giornata pensata con cura.</p>
-					<h1 className="display-title hero__title">Igor e Giulia</h1>
-					<p className="body-lg hero__lead">
-						Ci sposiamo tra colline luminose, tavole raccolte e una lunga sera d&apos;estate da
-						vivere insieme alle persone che contano davvero.
-					</p>
+						<span className="eyebrow">21 giugno 2026 - Langhe</span>
+						<p className="hero__kicker">Un invito a condividere una giornata pensata con cura.</p>
+						<h1 className="display-title hero__title">Igor e Giulia</h1>
+						<p className="body-lg hero__lead">
+							Ci sposiamo tra colline luminose, tavole raccolte e una lunga sera d&apos;estate da
+							vivere insieme alle persone che contano davvero.
+						</p>
 
-					<div className="hero__actions">
-						<m.a
-							className="button"
-							href="#lista-nozze"
-							variants={buttonVariants}
-							initial="rest"
-							animate="rest"
-							whileHover={reduceMotion ? undefined : 'hover'}
-							whileTap={reduceMotion ? undefined : 'tap'}
-						>
-							<span>Scopri la lista nozze</span>
-							<m.span className="button__icon" aria-hidden="true" variants={buttonIconVariants}>
-								↗
-							</m.span>
-						</m.a>
-						<m.a
-							className="button button--secondary"
-							href="#venue"
-							variants={buttonVariants}
-							initial="rest"
-							animate="rest"
-							whileHover={reduceMotion ? undefined : 'hover'}
-							whileTap={reduceMotion ? undefined : 'tap'}
-						>
-							<span>Esplora la location</span>
-							<m.span className="button__icon" aria-hidden="true" variants={buttonIconVariants}>
-								↗
-							</m.span>
-						</m.a>
-					</div>
+						<div className="hero__actions">
+							<m.a
+								className="button"
+								href="#lista-nozze"
+								variants={buttonVariants}
+								initial="rest"
+								animate="rest"
+								whileHover={reduceMotion ? undefined : 'hover'}
+								whileTap={reduceMotion ? undefined : 'tap'}
+							>
+								<span>Scopri la lista nozze</span>
+								<m.span className="button__icon" aria-hidden="true" variants={buttonIconVariants}>
+									↗
+								</m.span>
+							</m.a>
+							<m.a
+								className="button button--secondary"
+								href="#venue"
+								variants={buttonVariants}
+								initial="rest"
+								animate="rest"
+								whileHover={reduceMotion ? undefined : 'hover'}
+								whileTap={reduceMotion ? undefined : 'tap'}
+							>
+								<span>Esplora la location</span>
+								<m.span className="button__icon" aria-hidden="true" variants={buttonIconVariants}>
+									↗
+								</m.span>
+							</m.a>
+						</div>
 
-					<a className="scroll-cue" href="#storia">
-						<span className="scroll-cue__line" aria-hidden="true" />
-						<span>Scorri per continuare</span>
-					</a>
+						<a className="scroll-cue" href="#storia">
+							<span className="scroll-cue__line" aria-hidden="true" />
+							<span>Scorri per continuare</span>
+						</a>
 					</m.div>
 
 					<m.div className="hero__media hero__media--motion" style={reduceMotion ? undefined : { y: mediaY }}>
@@ -159,16 +159,7 @@ export default function MotionHero({ gallery }: MotionHeroProps) {
 							<div className="hero__halo hero__halo--sage" />
 						</div>
 
-						<div className="hero__media-rail">
-							{gallery.map((item, index) => (
-								<HeroCard
-								key={item.src}
-								item={item}
-								index={index}
-								reduceMotion={reduceMotion}
-								/>
-							))}
-						</div>
+						<HeroImage item={image} reduceMotion={reduceMotion} />
 					</m.div>
 				</div>
 			</section>

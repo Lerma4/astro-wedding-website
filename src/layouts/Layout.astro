@@ -205,7 +205,7 @@ const {
 	.display-title,
 	.section-title,
 	.registry-card h3,
-	.hero-card__copy h2 {
+	.hero-portrait__copy h2 {
 		font-family: var(--font-serif);
 		font-weight: 600;
 		letter-spacing: -0.03em;
@@ -698,47 +698,46 @@ const {
 		background: radial-gradient(circle, rgba(124, 140, 122, 0.2) 0%, rgba(124, 140, 122, 0.08) 46%, rgba(124, 140, 122, 0) 78%);
 	}
 
-	.hero__media-rail {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 1rem;
-		align-items: start;
+	.hero-portrait {
+		margin: 0;
+		background: rgba(255, 253, 252, 0.68);
 		position: relative;
 		z-index: 1;
 	}
 
-	.hero-card {
-		background: rgba(255, 253, 252, 0.62);
-	}
-
-	.hero-card--1 {
-		transform: translate3d(0, 0.75rem, 0) rotate(-2deg);
-	}
-
-	.hero-card--2 {
-		transform: translate3d(0, -0.75rem, 0);
-	}
-
-	.hero-card--3 {
-		transform: translate3d(0, 1.5rem, 0) rotate(2deg);
-	}
-
-	.hero-card__inner {
+	.hero-portrait__inner {
+		position: relative;
 		overflow: hidden;
 	}
 
-	.hero-card__inner img {
-		aspect-ratio: 0.78;
+	.hero-portrait__inner img {
+		width: 100%;
+		aspect-ratio: 1.06;
 		object-fit: cover;
+		object-position: 63% 52%;
 	}
 
-	.hero-card__copy {
+	.hero-portrait__shade {
+		position: absolute;
+		inset: 0;
+		background:
+			linear-gradient(180deg, rgba(47, 42, 40, 0) 42%, rgba(47, 42, 40, 0.58) 100%),
+			linear-gradient(90deg, rgba(47, 42, 40, 0.28), rgba(47, 42, 40, 0) 52%);
+		pointer-events: none;
+	}
+
+	.hero-portrait__copy {
+		position: absolute;
+		left: clamp(1rem, 3vw, 1.45rem);
+		right: clamp(1rem, 3vw, 1.45rem);
+		bottom: clamp(1rem, 3vw, 1.45rem);
 		display: grid;
-		gap: 0.5rem;
-		padding: 1rem 1rem 1.15rem;
+		gap: 0.55rem;
+		max-width: 18rem;
+		color: #fff8f2;
 	}
 
-	.hero-card__meta,
+	.hero-portrait__meta,
 	.registry-card__eyebrow {
 		margin: 0;
 		font-size: 0.74rem;
@@ -747,7 +746,11 @@ const {
 		color: var(--color-text-soft);
 	}
 
-	.hero-card__copy h2 {
+	.hero-portrait__meta {
+		color: rgba(255, 248, 242, 0.76);
+	}
+
+	.hero-portrait__copy h2 {
 		font-size: 1.55rem;
 		line-height: 1.02;
 	}
@@ -1072,15 +1075,8 @@ const {
 			max-width: none;
 		}
 
-		.hero__media-rail {
-			grid-template-columns: repeat(3, minmax(15rem, 1fr));
-			overflow-x: auto;
-			padding-bottom: 0.35rem;
-			scroll-snap-type: x proximity;
-		}
-
-		.hero-card {
-			scroll-snap-align: start;
+		.hero-portrait__inner img {
+			aspect-ratio: 1.45;
 		}
 	}
 
@@ -1118,21 +1114,9 @@ const {
 			padding: 0.65rem 0.7rem 0.65rem 0.9rem;
 		}
 
-		.hero__media-rail {
-			grid-template-columns: 1fr;
-			overflow: visible;
-		}
-
-		.hero-card,
-		.hero-card--1,
-		.hero-card--2,
-		.hero-card--3 {
-			transform: none;
-		}
-
-		.hero-card__inner img,
+		.hero-portrait__inner img,
 		.venue-figure__inner img {
-			aspect-ratio: 0.92;
+			aspect-ratio: 1.02;
 		}
 
 		.hero__actions {
