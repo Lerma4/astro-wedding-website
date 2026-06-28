@@ -138,7 +138,7 @@ export default function MotionNav({ links }: MotionNavProps) {
 								alt=""
 								style={{ height: '46px', width: 'auto', display: 'block' }}
 							/>
-							<span className="nav-brand__text">Igor & Giulia</span>
+							<span className="nav-brand__text">Igor & Eleonora</span>
 						</a>
 
 						<nav className="nav-links" aria-label="Sezioni principali">
@@ -222,7 +222,7 @@ export default function MotionNav({ links }: MotionNavProps) {
 										alt=""
 										style={{ height: '40px', width: 'auto', display: 'block' }}
 									/>
-									<span>Igor & Giulia</span>
+									<span>Igor & Eleonora</span>
 								</div>
 								<button
 									type="button"

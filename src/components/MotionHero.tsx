@@ -57,6 +57,25 @@ const buttonIconVariants: Variants = {
 	},
 };
 
+const contentEntry: Variants = {
+	hidden: { opacity: 0, y: 42 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: { duration: 0.95, ease, delay: 0.12 },
+	},
+};
+
+const mediaEntry: Variants = {
+	hidden: { opacity: 0, y: 56, scale: 0.985 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		scale: 1,
+		transition: { duration: 1.08, ease, delay: 0.22 },
+	},
+};
+
 function HeroImage({ item, reduceMotion }: HeroImageProps) {
 	return (
 		<m.figure
@@ -105,11 +124,14 @@ export default function MotionHero({ image }: MotionHeroProps) {
 				<div className="container hero__grid hero__grid--motion">
 					<m.div
 						className="hero__content"
+						variants={contentEntry}
+						initial={reduceMotion ? false : 'hidden'}
+						animate="visible"
 						style={reduceMotion ? undefined : { y: contentY, opacity: contentOpacity }}
 					>
 						<span className="eyebrow">21 giugno 2026 - Langhe</span>
 						<p className="hero__kicker">Un invito a condividere una giornata pensata con cura.</p>
-						<h1 className="display-title hero__title">Igor e Giulia</h1>
+						<h1 className="display-title hero__title">Igor e Eleonora</h1>
 						<p className="body-lg hero__lead">
 							Ci sposiamo tra colline luminose, tavole raccolte e una lunga sera d&apos;estate da
 							vivere insieme alle persone che contano davvero.
@@ -152,7 +174,13 @@ export default function MotionHero({ image }: MotionHeroProps) {
 						</a>
 					</m.div>
 
-					<m.div className="hero__media hero__media--motion" style={reduceMotion ? undefined : { y: mediaY }}>
+					<m.div
+						className="hero__media hero__media--motion"
+						variants={mediaEntry}
+						initial={reduceMotion ? false : 'hidden'}
+						animate="visible"
+						style={reduceMotion ? undefined : { y: mediaY }}
+					>
 						<div className="hero__stage" aria-hidden="true">
 							<div className="hero__halo hero__halo--rose" />
 							<div className="hero__halo hero__halo--champagne" />

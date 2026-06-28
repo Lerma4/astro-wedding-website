@@ -121,7 +121,7 @@ export default function MotionRegistryGrid() {
 						<h3>Bonifico dedicato</h3>
 						<div className="detail-row detail-row--stacked">
 							<span className="detail-row__label">Intestazione</span>
-							<span className="detail-row__value">Igor e Giulia Rossi</span>
+							<span className="detail-row__value">Igor e Eleonora Rossi</span>
 						</div>
 						<div className="detail-row detail-row--stacked">
 							<span className="detail-row__label">IBAN placeholder</span>
@@ -151,7 +151,7 @@ export default function MotionRegistryGrid() {
 							immagini e riferimenti placeholder, pronti per essere sostituiti con i dettagli
 							definitivi.
 						</p>
-						<p className="registry-note__signature">Igor e Giulia</p>
+						<p className="registry-note__signature">Igor e Eleonora</p>
 					</div>
 					</m.aside>
 				</div>
