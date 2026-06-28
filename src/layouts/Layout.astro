@@ -7,7 +7,7 @@ interface Props {
 }
 
 const {
-	title = 'Igor e Giulia | Matrimonio',
+	title = 'Igor e Eleonora | Matrimonio',
 	description = 'Una landing page matrimonio elegante con dettagli della giornata, location e lista nozze.',
 } = Astro.props;
 ---
@@ -196,7 +196,7 @@ const {
 					<span class="preloader-mark" aria-hidden="true">
 						<img class="preloader-logo" src={logoImg.src} alt="" loading="eager" decoding="sync" />
 					</span>
-					<p class="preloader-title">Igor e Giulia</p>
+					<p class="preloader-title">Igor e Eleonora</p>
 					<p class="preloader-copy">Prepariamo l'invito</p>
 					<span class="preloader-line" aria-hidden="true"></span>
 				</div>
@@ -350,10 +350,14 @@ const {
 
 	.section--hero {
 		padding-top: clamp(7rem, 12vw, 10rem);
-		padding-bottom: clamp(5rem, 8vw, 7.5rem);
+		padding-bottom: clamp(4.5rem, 7vw, 6.5rem);
 		min-height: 100dvh;
 		display: flex;
 		align-items: center;
+	}
+
+	.section--hero > .container {
+		width: min(1320px, calc(100% - (var(--gutter) * 2)));
 	}
 
 	.eyebrow {
@@ -780,10 +784,22 @@ const {
 		align-items: center;
 	}
 
+	.hero__grid {
+		grid-template-columns: minmax(22rem, 0.78fr) minmax(0, 1.22fr);
+		gap: clamp(1.75rem, 4vw, 3.25rem);
+	}
+
 	.hero__content {
 		display: grid;
 		gap: 1.35rem;
-		max-width: 34rem;
+		max-width: 36rem;
+		position: relative;
+		z-index: 2;
+		padding: clamp(1.35rem, 3vw, 2.35rem);
+		border: 1px solid rgba(191, 165, 144, 0.2);
+		border-radius: 2rem;
+		background: linear-gradient(135deg, rgba(255, 253, 252, 0.94), rgba(250, 247, 242, 0.82));
+		box-shadow: 0 22px 58px rgba(120, 97, 78, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.82);
 	}
 
 	.hero__kicker {
@@ -826,6 +842,7 @@ const {
 
 	.hero__media {
 		min-width: 0;
+		justify-self: stretch;
 	}
 
 	.hero__grid--motion {
@@ -839,7 +856,7 @@ const {
 
 	.hero__stage {
 		position: absolute;
-		inset: -3rem -2rem -2rem;
+		inset: -4rem -2rem -2rem -5rem;
 		pointer-events: none;
 		z-index: 0;
 	}
@@ -851,16 +868,16 @@ const {
 	}
 
 	.hero__halo--rose {
-		inset: 6% auto auto 4%;
-		width: min(22rem, 55vw);
-		height: min(22rem, 55vw);
+		inset: 2% auto auto 8%;
+		width: min(30rem, 64vw);
+		height: min(30rem, 64vw);
 		background: radial-gradient(circle, rgba(183, 110, 121, 0.34) 0%, rgba(183, 110, 121, 0.14) 38%, rgba(183, 110, 121, 0) 72%);
 	}
 
 	.hero__halo--champagne {
-		inset: auto 2% 0 auto;
-		width: min(24rem, 62vw);
-		height: min(24rem, 62vw);
+		inset: auto 0 -4% auto;
+		width: min(34rem, 70vw);
+		height: min(34rem, 70vw);
 		background: radial-gradient(circle, rgba(216, 185, 138, 0.34) 0%, rgba(216, 185, 138, 0.12) 42%, rgba(216, 185, 138, 0) 74%);
 	}
 
@@ -876,26 +893,44 @@ const {
 		background: rgba(255, 253, 252, 0.68);
 		position: relative;
 		z-index: 1;
+		padding: 0.45rem;
+		border-radius: 2.4rem;
+		box-shadow: 0 26px 76px rgba(120, 97, 78, 0.11);
 	}
 
 	.hero-portrait__inner {
 		position: relative;
 		overflow: hidden;
+		border-radius: calc(2.4rem - 0.45rem);
+	}
+
+	.hero-portrait__inner::before {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		background:
+			linear-gradient(90deg, rgba(250, 247, 242, 0.52), rgba(250, 247, 242, 0.06) 34%, rgba(47, 42, 40, 0) 58%),
+			radial-gradient(circle at 18% 18%, rgba(216, 185, 138, 0.2), transparent 34%);
+		content: '';
+		mix-blend-mode: screen;
+		pointer-events: none;
 	}
 
 	.hero-portrait__inner img {
 		width: 100%;
-		aspect-ratio: 1.06;
+		aspect-ratio: 1.62;
 		object-fit: cover;
-		object-position: 63% 52%;
+		object-position: 58% 50%;
+		transform: scale(1.015);
 	}
 
 	.hero-portrait__shade {
 		position: absolute;
 		inset: 0;
+		z-index: 2;
 		background:
-			linear-gradient(180deg, rgba(47, 42, 40, 0) 42%, rgba(47, 42, 40, 0.58) 100%),
-			linear-gradient(90deg, rgba(47, 42, 40, 0.28), rgba(47, 42, 40, 0) 52%);
+			linear-gradient(180deg, rgba(47, 42, 40, 0) 36%, rgba(47, 42, 40, 0.58) 100%),
+			linear-gradient(90deg, rgba(47, 42, 40, 0.34), rgba(47, 42, 40, 0) 48%);
 		pointer-events: none;
 	}
 
@@ -904,9 +939,10 @@ const {
 		left: clamp(1rem, 3vw, 1.45rem);
 		right: clamp(1rem, 3vw, 1.45rem);
 		bottom: clamp(1rem, 3vw, 1.45rem);
+		z-index: 3;
 		display: grid;
 		gap: 0.55rem;
-		max-width: 18rem;
+		max-width: 22rem;
 		color: #fff8f2;
 	}
 
@@ -924,7 +960,7 @@ const {
 	}
 
 	.hero-portrait__copy h2 {
-		font-size: 1.55rem;
+		font-size: clamp(1.55rem, 2.4vw, 2.25rem);
 		line-height: 1.02;
 	}
 
@@ -1227,6 +1263,22 @@ const {
 		color: var(--color-text-soft);
 	}
 
+	@media (max-width: 1080px) {
+		.hero__grid {
+			grid-template-columns: 1fr;
+			gap: clamp(1.75rem, 5vw, 3rem);
+		}
+
+		.hero__content {
+			max-width: none;
+		}
+
+		.hero__media {
+			width: min(100%, 52rem);
+			justify-self: center;
+		}
+	}
+
 	@media (max-width: 920px) {
 		.nav-links,
 		.nav-cta {
@@ -1271,6 +1323,10 @@ const {
 			width: min(100% - 2rem, var(--container));
 		}
 
+		.section--hero > .container {
+			width: min(100% - 2rem, var(--container));
+		}
+
 		.display-title {
 			font-size: clamp(2.7rem, 15vw, 4rem);
 		}
@@ -1289,7 +1345,20 @@ const {
 
 		.hero-portrait__inner img,
 		.venue-figure__inner img {
-			aspect-ratio: 1.02;
+			aspect-ratio: 1.12;
+		}
+
+		.hero__content {
+			padding: 1.15rem;
+			border-radius: 1.55rem;
+		}
+
+		.hero-portrait {
+			border-radius: 1.85rem;
+		}
+
+		.hero-portrait__inner {
+			border-radius: calc(1.85rem - 0.45rem);
 		}
 
 		.hero__actions {
