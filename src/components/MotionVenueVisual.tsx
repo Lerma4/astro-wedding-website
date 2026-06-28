@@ -28,19 +28,18 @@ export default function MotionVenueVisual() {
 				<div className="bezel__inner venue-figure__inner">
 					<div className="venue__meta-band">
 						<span className="detail-chip detail-chip--accent">Arrivo</span>
-						<span className="detail-chip">Giardino e corte</span>
+						<span className="detail-chip">Verde e ulivi</span>
 					</div>
 					<m.img
 						src="/placeholders/venue-landscape.svg"
-						alt="Placeholder editoriale della location con architettura mediterranea e paesaggio collinare"
+						alt="Placeholder editoriale della location con atmosfera ligure, verde e luce mediterranea"
 						loading="lazy"
 						decoding="async"
 					/>
 					<figcaption className="venue__caption">
 						<span className="detail-chip">Placeholder immagine</span>
 						<p>
-							Una cornice luminosa e sobria, pensata per restare elegante in ogni momento della
-							giornata.
+							Una cornice luminosa e sobria, sospesa tra il verde e la vicinanza del mare.
 						</p>
 					</figcaption>
 				</div>

@@ -273,7 +273,7 @@ export default function MotionNav({ links }: MotionNavProps) {
 							</m.a>
 
 							<m.p className="menu-overlay__footer" variants={itemVariants}>
-								Langhe, giugno, luce di sera.
+								Arenzano, giugno, luce di sera.
 							</m.p>
 						</m.div>
 					</m.div>
