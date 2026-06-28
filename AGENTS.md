@@ -69,5 +69,6 @@ Per qualsiasi modifica a UI, layout, componenti, tipografia, colori, spaziature,
 
 ## Verification
 
+- Dopo ogni modifica a codice o contenuti, eseguire `npm run check`.
 - Dopo modifiche sostanziali, verificare almeno con `npm run build`.
 - Se si introducono cambi strutturali, controllare che non restino testi demo di Astro, metadata generici o riferimenti allo starter nel risultato finale.

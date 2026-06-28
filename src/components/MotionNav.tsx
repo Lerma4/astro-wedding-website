@@ -67,7 +67,9 @@ export default function MotionNav({ links }: MotionNavProps) {
 		const previouslyFocused = document.activeElement instanceof HTMLElement
 			? document.activeElement
 			: null;
-		const inertExclusions = new Set<Element>([root, islandHost].filter(Boolean));
+		const inertExclusions = new Set<Element>(
+			[root, islandHost].filter((element): element is Element => Boolean(element)),
+		);
 		const inertSiblings = Array.from(document.body.children).filter(
 			(child) => !inertExclusions.has(child),
 		);
