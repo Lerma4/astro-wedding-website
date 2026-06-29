@@ -71,21 +71,23 @@ The background should not be flat. Use layered visual depth:
 The overall effect should be calm and luxurious, never busy.
 
 ## Typography
-Use a combination of a high-contrast serif for key headings and a clean sans-serif for body content.
+Use a combination of a restrained calligraphic display face for key headings, a high-contrast serif for romantic support details, and a clean sans-serif for body content.
 
 ### Font Pairing
-- Headings: `Cormorant Garamond`, fallback `Playfair Display`, serif
+- Key headings: `Parisienne`, fallback `Cormorant Garamond`, cursive
+- Support serif details: `Cormorant Garamond`, fallback `Playfair Display`, serif
 - Body / UI: `Plus Jakarta Sans`, fallback `Manrope`, sans-serif
 
 ### Type Scale
-- Hero title: 56–72px desktop, 40–48px mobile
-- Section title: 32–40px desktop, 26–32px mobile
+- Hero title: 64–116px desktop, 54–82px mobile
+- Section title: 42–72px desktop, 40–55px mobile
 - Intro lead paragraph: 20–24px desktop, 18–20px mobile
 - Body text: 16–18px
 - Small meta text: 13–14px
 
 ### Typographic Rules
-- Serif headings should feel elegant and airy, with slightly tight line-height.
+- Parisienne headings should feel romantic and editorial, used with restraint and generous line-height so long Italian titles remain readable.
+- Serif details should support the calligraphic headings without competing with them.
 - Body text should remain highly readable and never too light.
 - Use sentence case, not all caps for large headings.
 - Small labels may use uppercase with generous letter spacing.

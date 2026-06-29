@@ -141,18 +141,18 @@ export default function MotionNav({ links }: MotionNavProps) {
 							<span className="nav-brand__text">Igor & Eleonora</span>
 						</a>
 
-						<nav className="nav-links" aria-label="Sezioni principali">
+						<nav className="nav-actions" aria-label="Sezioni principali">
 							{links.map((link) => (
-								<a key={link.href} href={link.href} className="nav-links__item">
-									{link.label}
+								<a
+									key={link.href}
+									href={link.href}
+									className={`button button--secondary nav-action${link.href === '#location' ? ' nav-action--location' : ''}`}
+								>
+									<span>{link.label}</span>
+									<span className="button__icon" aria-hidden="true">↗</span>
 								</a>
 							))}
 						</nav>
-
-						<a className="button button--secondary nav-cta" href="#lista-nozze">
-							<span>Lista nozze</span>
-							<span className="button__icon" aria-hidden="true">↗</span>
-						</a>
 
 						<m.button
 							ref={toggleRef}
@@ -242,35 +242,21 @@ export default function MotionNav({ links }: MotionNavProps) {
 								</p>
 							</m.div>
 
-							<nav className="menu-overlay__nav" aria-label="Menu mobile">
-								{links.map((link, index) => (
+							<nav className="menu-overlay__actions" aria-label="Menu mobile">
+								{links.map((link) => (
 									<m.a
 										key={link.href}
 										href={link.href}
-										className="menu-overlay__link"
+										className={`button button--secondary menu-overlay__action${link.href === '#location' ? ' nav-action--location' : ''}`}
 										onClick={closeMenu}
 										variants={itemVariants}
-										whileHover={
-											reduceMotion ? undefined : { x: 8, transition: { duration: 0.35, ease } }
-										}
+										whileHover={reduceMotion ? undefined : { y: -4, transition: { duration: 0.35, ease } }}
 									>
-										<span className="menu-overlay__link-index">0{index + 1}</span>
-										<span className="menu-overlay__link-label">{link.label}</span>
-										<span className="menu-overlay__link-arrow" aria-hidden="true">↗</span>
+										<span>{link.href === '#location' ? 'Scopri la location' : 'Apri la lista nozze'}</span>
+										<span className="button__icon" aria-hidden="true">↗</span>
 									</m.a>
 								))}
 							</nav>
-
-							<m.a
-								className="button menu-overlay__cta"
-								href="#lista-nozze"
-								onClick={closeMenu}
-								variants={itemVariants}
-								whileHover={reduceMotion ? undefined : { y: -4, transition: { duration: 0.35, ease } }}
-							>
-								<span>Apri la sezione regali</span>
-								<span className="button__icon" aria-hidden="true">↗</span>
-							</m.a>
 
 							<m.p className="menu-overlay__footer" variants={itemVariants}>
 								Arenzano, giugno, luce di sera.
