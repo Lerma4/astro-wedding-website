@@ -357,7 +357,7 @@ const {
 	}
 
 	.section--hero > .container {
-		width: min(1320px, calc(100% - (var(--gutter) * 2)));
+		width: min(1480px, calc(100% - (var(--gutter) * 2)));
 	}
 
 	.eyebrow {
@@ -785,17 +785,18 @@ const {
 	}
 
 	.hero__grid {
-		grid-template-columns: minmax(22rem, 0.78fr) minmax(0, 1.22fr);
-		gap: clamp(1.75rem, 4vw, 3.25rem);
+		grid-template-columns: minmax(24rem, 0.86fr) minmax(0, 1.14fr);
+		gap: clamp(1.5rem, 3vw, 2.85rem);
+		align-items: stretch;
 	}
 
 	.hero__content {
 		display: grid;
+		align-content: center;
 		gap: 1.35rem;
-		max-width: 36rem;
 		position: relative;
 		z-index: 2;
-		padding: clamp(1.35rem, 3vw, 2.35rem);
+		padding: clamp(1.6rem, 3vw, 2.7rem);
 		border: 1px solid rgba(191, 165, 144, 0.2);
 		border-radius: 2rem;
 		background: linear-gradient(135deg, rgba(255, 253, 252, 0.94), rgba(250, 247, 242, 0.82));
@@ -841,6 +842,7 @@ const {
 	}
 
 	.hero__media {
+		display: flex;
 		min-width: 0;
 		justify-self: stretch;
 	}
@@ -889,6 +891,9 @@ const {
 	}
 
 	.hero-portrait {
+		display: flex;
+		width: 100%;
+		height: 100%;
 		margin: 0;
 		background: rgba(255, 253, 252, 0.68);
 		position: relative;
@@ -900,6 +905,8 @@ const {
 
 	.hero-portrait__inner {
 		position: relative;
+		width: 100%;
+		height: 100%;
 		overflow: hidden;
 		border-radius: calc(2.4rem - 0.45rem);
 	}
@@ -918,6 +925,7 @@ const {
 
 	.hero-portrait__inner img {
 		width: 100%;
+		height: 100%;
 		aspect-ratio: 1.62;
 		object-fit: cover;
 		object-position: 58% 50%;
@@ -962,23 +970,6 @@ const {
 	.hero-portrait__copy h2 {
 		font-size: clamp(1.55rem, 2.4vw, 2.25rem);
 		line-height: 1.02;
-	}
-
-	.intro {
-		display: grid;
-		gap: 1.2rem;
-		text-align: center;
-	}
-
-	.intro__title {
-		max-width: 40rem;
-		margin-inline: auto;
-	}
-
-	.intro__text--secondary {
-		max-width: 42rem;
-		margin-inline: auto;
-		color: var(--color-text-soft);
 	}
 
 	.venue__copy {
@@ -1266,6 +1257,7 @@ const {
 	@media (max-width: 1080px) {
 		.hero__grid {
 			grid-template-columns: 1fr;
+			align-items: center;
 			gap: clamp(1.75rem, 5vw, 3rem);
 		}
 
@@ -1276,6 +1268,12 @@ const {
 		.hero__media {
 			width: min(100%, 52rem);
 			justify-self: center;
+		}
+
+		.hero-portrait,
+		.hero-portrait__inner,
+		.hero-portrait__inner img {
+			height: auto;
 		}
 	}
 

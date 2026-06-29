@@ -129,12 +129,12 @@ export default function MotionHero({ image }: MotionHeroProps) {
 						animate="visible"
 						style={reduceMotion ? undefined : { y: contentY, opacity: contentOpacity }}
 					>
-						<span className="eyebrow">21 giugno 2026 - Arenzano</span>
-						<p className="hero__kicker">Un invito a condividere una giornata pensata con cura.</p>
-						<h1 className="display-title hero__title">Igor e Eleonora</h1>
+						<span className="eyebrow">6 settembre 2026</span>
+						<p className="hero__kicker">Benvenuti nel nostro spazio</p>
+						<h1 className="display-title hero__title">Igor e Elenora</h1>
 						<p className="body-lg hero__lead">
-							Ci sposiamo tra il verde ligure e la luce del mare, in una lunga sera d&apos;estate da
-							vivere insieme alle persone che contano davvero.
+							Qui abbiamo raccolto i dettagli del nostro matrimonio, per accompagnarvi con cura
+							fino al giorno in cui lo vivremo insieme.
 						</p>
 
 						<div className="hero__actions">
@@ -168,7 +168,7 @@ export default function MotionHero({ image }: MotionHeroProps) {
 							</m.a>
 						</div>
 
-						<a className="scroll-cue" href="#storia">
+						<a className="scroll-cue" href="#venue">
 							<span className="scroll-cue__line" aria-hidden="true" />
 							<span>Scorri per continuare</span>
 						</a>
