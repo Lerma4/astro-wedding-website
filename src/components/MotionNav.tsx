@@ -1,5 +1,5 @@
 import { AnimatePresence, m, useReducedMotion, type Variants } from 'framer-motion';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState, type MouseEvent } from 'react';
 import logoImg from '../assets/logo.webp';
 import MotionProvider from './MotionProvider';
 
@@ -48,6 +48,7 @@ export default function MotionNav({ links }: MotionNavProps) {
 	const rootRef = useRef<HTMLElement | null>(null);
 	const toggleRef = useRef<HTMLButtonElement | null>(null);
 	const panelRef = useRef<HTMLDivElement | null>(null);
+	const pendingHashRef = useRef<string | null>(null);
 
 	useEffect(() => {
 		document.body.dataset.menuOpen = overlayActive ? 'true' : 'false';
@@ -126,6 +127,39 @@ export default function MotionNav({ links }: MotionNavProps) {
 
 	const closeMenu = () => setOpen(false);
 
+	const scrollToHash = (hash: string) => {
+		const target = document.querySelector<HTMLElement>(hash);
+		if (!target) {
+			return;
+		}
+
+		target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+		window.history.pushState(null, '', hash);
+	};
+
+	const closeMenuAndScroll = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+		if (!href.startsWith('#')) {
+			closeMenu();
+			return;
+		}
+
+		event.preventDefault();
+		pendingHashRef.current = href;
+		closeMenu();
+	};
+
+	const handleMenuExitComplete = () => {
+		setOverlayActive(false);
+
+		const pendingHash = pendingHashRef.current;
+		if (!pendingHash) {
+			return;
+		}
+
+		pendingHashRef.current = null;
+		requestAnimationFrame(() => scrollToHash(pendingHash));
+	};
+
 	return (
 		<MotionProvider>
 			<header ref={rootRef} className="floating-nav-shell" data-floating-nav data-open={open ? 'true' : 'false'}>
@@ -196,7 +230,7 @@ export default function MotionNav({ links }: MotionNavProps) {
 				</div>
 			</div>
 
-			<AnimatePresence onExitComplete={() => setOverlayActive(false)}>
+			<AnimatePresence onExitComplete={handleMenuExitComplete}>
 				{open ? (
 					<m.div
 						className="menu-overlay"
@@ -237,9 +271,6 @@ export default function MotionNav({ links }: MotionNavProps) {
 
 							<m.div className="menu-overlay__intro" variants={itemVariants}>
 								<span className="eyebrow">Menu</span>
-								<p className="menu-overlay__lede">
-									Una soglia morbida per entrare nel racconto della giornata.
-								</p>
 							</m.div>
 
 							<nav className="menu-overlay__actions" aria-label="Menu mobile">
@@ -248,7 +279,7 @@ export default function MotionNav({ links }: MotionNavProps) {
 										key={link.href}
 										href={link.href}
 										className={`button button--secondary menu-overlay__action${link.href === '#location' ? ' nav-action--location' : ''}`}
-										onClick={closeMenu}
+										onClick={(event) => closeMenuAndScroll(event, link.href)}
 										variants={itemVariants}
 										whileHover={reduceMotion ? undefined : { y: -4, transition: { duration: 0.35, ease } }}
 									>
@@ -259,7 +290,7 @@ export default function MotionNav({ links }: MotionNavProps) {
 							</nav>
 
 							<m.p className="menu-overlay__footer" variants={itemVariants}>
-								Arenzano, giugno, luce di sera.
+								Arenzano, 6 settembre 2026.
 							</m.p>
 						</m.div>
 					</m.div>
