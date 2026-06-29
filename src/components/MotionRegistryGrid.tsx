@@ -27,7 +27,6 @@ export default function MotionRegistryGrid() {
 	const imageY = useTransform(smoothProgress, [0, 1], enableMotion ? [24, -16] : [0, 0]);
 	const imageRotate = useTransform(smoothProgress, [0, 1], enableMotion ? [-0.7, 0.08] : [0, 0]);
 	const copyY = useTransform(smoothProgress, [0, 1], enableMotion ? [14, -10] : [0, 0]);
-	const copyRotate = useTransform(smoothProgress, [0, 1], enableMotion ? [0.55, -0.08] : [0, 0]);
 
 	return (
 		<MotionProvider>
@@ -37,66 +36,44 @@ export default function MotionRegistryGrid() {
 					<div className="registry__glow registry__glow--sage" />
 				</div>
 				<m.div
-					className="bezel registry-plate"
+					className="bezel registry-plate registry-plate--showcase"
 					style={enableMotion ? { y: imageY, rotate: imageRotate } : undefined}
 				>
 					<figure className="bezel__inner registry-plate__inner">
 						<img
 							className="registry-plate__image"
-							src="/lista_nozze.webp"
+							src="/nozze.webp"
 							alt="Registro di nozze con due scene: casa e mare, unite da un nastro a forma di infinito."
 							loading="lazy"
 							decoding="async"
 						/>
-						<figcaption className="registry-plate__caption">
-							<span>Casa</span>
-							<span aria-hidden="true">/</span>
-							<span>Viaggio</span>
-						</figcaption>
+
+						<m.aside
+							className="registry-paypal"
+							aria-label="Contributo tramite PayPal"
+							style={enableMotion ? { y: copyY } : undefined}
+						>
+							<p className="registry-paypal__eyebrow">Contributo libero</p>
+							<m.a
+								className="button registry-paypal__button"
+								href="https://www.paypal.com/"
+								target="_blank"
+								rel="noopener noreferrer"
+								whileHover={enableMotion ? { y: -4, transition: { duration: 0.32, ease } } : undefined}
+							>
+								<span>Paga con PayPal</span>
+								<m.span
+									className="button__icon"
+									aria-hidden="true"
+									whileHover={enableMotion ? { x: 4, y: -2, scale: 1.05 } : undefined}
+								>
+									↗
+								</m.span>
+							</m.a>
+							<p className="registry-paypal__note">Grazie di cuore.</p>
+						</m.aside>
 					</figure>
 				</m.div>
-
-				<m.article
-					className="bezel registry-gift"
-					style={enableMotion ? { y: copyY, rotate: copyRotate } : undefined}
-				>
-					<div className="bezel__inner registry-gift__inner">
-						<p className="registry-gift__eyebrow">Contributo tramite PayPal</p>
-						<h3 className="registry-gift__title">Una soglia tra cio' che costruiremo e cio' che scopriremo.</h3>
-						<p className="body muted">
-							Il dono non ha categorie o importi suggeriti: resta libero, personale e raccolto in un
-							unico gesto. Lo useremo per alcuni dettagli della casa e per il viaggio che seguira'
-							la festa.
-						</p>
-
-						<div className="registry-gift__duo" aria-label="Destinazione del contributo">
-							<span>Casa</span>
-							<span className="registry-gift__duo-line" aria-hidden="true" />
-							<span>Vacanza</span>
-						</div>
-
-						<m.a
-							className="button registry-gift__button"
-							href="https://www.paypal.com/"
-							target="_blank"
-							rel="noopener noreferrer"
-							whileHover={enableMotion ? { y: -4, transition: { duration: 0.32, ease } } : undefined}
-						>
-							<span>Contribuisci con PayPal</span>
-							<m.span
-								className="button__icon"
-								aria-hidden="true"
-								whileHover={enableMotion ? { x: 4, y: -2, scale: 1.05 } : undefined}
-							>
-								↗
-							</m.span>
-						</m.a>
-
-						<p className="registry-gift__note">
-							La vostra presenza resta il regalo piu' importante.
-						</p>
-					</div>
-				</m.article>
 			</div>
 		</MotionProvider>
 	);

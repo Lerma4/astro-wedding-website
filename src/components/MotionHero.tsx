@@ -130,7 +130,7 @@ export default function MotionHero({ image }: MotionHeroProps) {
 						style={reduceMotion ? undefined : { y: contentY, opacity: contentOpacity }}
 					>
 						<span className="eyebrow">6 settembre 2026</span>
-						<p className="hero__kicker">Benvenuti nel nostro spazio</p>
+						{/* <p className="hero__kicker">Benvenuti nel nostro spazio</p> */}
 						<h1 className="display-title hero__title">Igor e Eleonora</h1>
 						<p className="body-lg hero__lead">
 							Qui abbiamo raccolto i dettagli del nostro matrimonio, per accompagnarvi con cura

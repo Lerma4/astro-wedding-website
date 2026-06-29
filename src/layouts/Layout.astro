@@ -1,4 +1,5 @@
 ---
+import { Font } from 'astro:assets';
 import logoImg from '../assets/logo.webp';
 
 interface Props {
@@ -20,6 +21,9 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<meta name="theme-color" content="#faf7f2" />
+		<Font cssVariable="--font-parisienne" preload />
+		<Font cssVariable="--font-cormorant-garamond" />
+		<Font cssVariable="--font-plus-jakarta-sans" />
 		<style is:inline>
 			html.is-loading,
 			html.is-loading body {
@@ -93,7 +97,7 @@ const {
 
 			.preloader-title {
 				margin: 0;
-				font-family: 'Parisienne', 'Cormorant Garamond', cursive;
+				font-family: var(--font-display);
 				font-size: clamp(2.35rem, 10vw, 3.25rem);
 				font-weight: 400;
 				line-height: 1;
@@ -102,7 +106,7 @@ const {
 
 			.preloader-copy {
 				margin: 0;
-				font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+				font-family: var(--font-sans);
 				font-size: 0.72rem;
 				font-weight: 600;
 				letter-spacing: 0.2em;
@@ -166,11 +170,16 @@ const {
 					window.addEventListener('load', resolve, { once: true });
 				});
 
+				const loadFontVariable = (name) => {
+					const family = getComputedStyle(root).getPropertyValue(name).trim();
+					return family ? document.fonts.load(`1em ${family}`) : Promise.resolve();
+				};
+
 				const fontsReady = 'fonts' in document
 					? Promise.allSettled([
-							document.fonts.load('1em "Plus Jakarta Sans"'),
-							document.fonts.load('1em "Parisienne"'),
-							document.fonts.load('1em "Cormorant Garamond"'),
+							loadFontVariable('--font-plus-jakarta-sans'),
+							loadFontVariable('--font-parisienne'),
+							loadFontVariable('--font-cormorant-garamond'),
 							document.fonts.ready,
 						])
 					: Promise.resolve();
@@ -182,12 +191,6 @@ const {
 		</script>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Parisienne&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-			rel="stylesheet"
-		/>
 		<title>{title}</title>
 	</head>
 	<body>
@@ -251,9 +254,9 @@ const {
 		--gutter: clamp(1.25rem, 3vw, 3rem);
 		--ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
 		--ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
-		--font-display: 'Parisienne', 'Cormorant Garamond', cursive;
-		--font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
-		--font-sans: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+		--font-display: var(--font-parisienne);
+		--font-serif: var(--font-cormorant-garamond);
+		--font-sans: var(--font-plus-jakarta-sans);
 	}
 
 	* {
@@ -385,7 +388,6 @@ const {
 
 	.display-title,
 	.section-title,
-	.registry-gift__title,
 	.hero-portrait__copy h2 {
 		font-family: var(--font-display);
 		font-weight: 400;
@@ -1194,7 +1196,10 @@ const {
 
 	.registry__grid--motion {
 		position: relative;
+		grid-template-columns: 1fr;
 		align-items: stretch;
+		max-width: 68rem;
+		margin-inline: auto;
 	}
 
 	.registry__ambient {
@@ -1237,8 +1242,7 @@ const {
 		margin-inline: auto;
 	}
 
-	.registry-plate,
-	.registry-gift {
+	.registry-plate {
 		align-self: stretch;
 		position: relative;
 		z-index: 1;
@@ -1248,9 +1252,9 @@ const {
 		position: relative;
 		overflow: hidden;
 		display: grid;
-		min-height: 100%;
+		min-height: clamp(24rem, 48vw, 38rem);
 		margin: 0;
-		padding: clamp(0.6rem, 1.4vw, 0.9rem);
+		padding: clamp(0.08rem, 0.25vw, 0.18rem) clamp(0.6rem, 1.4vw, 0.9rem) clamp(0.8rem, 1.8vw, 1.15rem);
 		background:
 			radial-gradient(circle at 70% 20%, rgba(94, 159, 184, 0.16), transparent 34%),
 			linear-gradient(180deg, rgba(255, 253, 252, 0.98), rgba(246, 239, 229, 0.92));
@@ -1259,15 +1263,15 @@ const {
 	.registry-plate__image {
 		display: block;
 		width: 100%;
-		height: auto;
-		object-fit: contain;
+		height: 100%;
+		object-fit: cover;
 		border-radius: calc(var(--radius-xl) - 0.9rem);
 		box-shadow: 0 24px 70px rgba(120, 97, 78, 0.13);
 	}
 
 	.registry-plate__caption {
 		position: absolute;
-		left: 50%;
+		left: clamp(1.15rem, 2.5vw, 1.9rem);
 		bottom: clamp(1.15rem, 2.5vw, 1.9rem);
 		display: inline-flex;
 		align-items: center;
@@ -1285,7 +1289,43 @@ const {
 		font-weight: 700;
 		letter-spacing: 0.18em;
 		text-transform: uppercase;
-		transform: translateX(-50%);
+	}
+
+	.registry-paypal {
+		position: absolute;
+		right: clamp(1.1rem, 3vw, 2.25rem);
+		bottom: clamp(1.1rem, 3vw, 2.25rem);
+		display: grid;
+		gap: 0.8rem;
+		width: min(20.5rem, calc(100% - 2.2rem));
+		padding: clamp(1rem, 2.4vw, 1.35rem);
+		border: 1px solid rgba(191, 165, 144, 0.26);
+		border-radius: 1.45rem;
+		background: rgba(255, 253, 252, 0.82);
+		box-shadow: 0 22px 55px rgba(47, 42, 40, 0.16);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+	}
+
+	.registry-paypal__eyebrow {
+		margin: 0;
+		color: var(--color-primary-strong);
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+	}
+
+	.registry-paypal__button {
+		justify-self: stretch;
+		justify-content: space-between;
+	}
+
+	.registry-paypal__note {
+		margin: 0;
+		font-family: var(--font-serif);
+		font-size: 1.05rem;
+		color: var(--color-text-soft);
 	}
 
 	.registry-gift__inner {
@@ -1468,6 +1508,28 @@ const {
 			gap: 0.7rem;
 			min-height: 0;
 			padding: 0.55rem;
+		}
+
+		.registry-plate__inner {
+			min-height: 0;
+			gap: 0.8rem;
+		}
+
+		.registry-plate__image {
+			height: auto;
+			aspect-ratio: 1.34;
+		}
+
+		.registry-plate__caption {
+			position: static;
+			justify-self: center;
+			width: fit-content;
+		}
+
+		.registry-paypal {
+			position: static;
+			width: 100%;
+			box-shadow: 0 16px 36px rgba(120, 97, 78, 0.11);
 		}
 
 		.venue-gallery__orbit {
