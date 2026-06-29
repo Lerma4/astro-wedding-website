@@ -154,7 +154,7 @@ export default function MotionHero({ image }: MotionHeroProps) {
 							</m.a>
 							<m.a
 								className="button button--secondary"
-								href="#venue"
+								href="#location"
 								variants={buttonVariants}
 								initial="rest"
 								animate="rest"
@@ -168,7 +168,7 @@ export default function MotionHero({ image }: MotionHeroProps) {
 							</m.a>
 						</div>
 
-						<a className="scroll-cue" href="#venue">
+						<a className="scroll-cue" href="#location">
 							<span className="scroll-cue__line" aria-hidden="true" />
 							<span>Scorri per continuare</span>
 						</a>
